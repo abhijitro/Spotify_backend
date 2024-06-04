@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: UserProfileService
+          uri: lb://UserProfileService
+          predicates:
+            - Path=/api/v1.0/userProfile/**
+
+        - id: MusicService
+          uri: lb://MusicService
+          predicates:
+            - Path=/api/v1.0/music/**
+
+        - id: WishListService
+          uri: lb://WishListService
+          predicates:
+            - Path=/api/v1.0/wishList/**
+
+        - id: AuthenticationService
+          uri: lb://AuthenticationService
+          predicates:
+            - Path=/api/v1.0/auth/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
